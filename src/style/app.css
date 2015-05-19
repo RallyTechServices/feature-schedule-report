@@ -1,0 +1,60 @@
+.app {
+}
+.tsinfolink {
+    position:absolute;
+    right:0px;
+    width: 14px;
+    height: 14px;
+    border-radius: 7px;
+    text-align: center;
+    color: white;
+    background: #C0C0C0;
+    border-style: solid;
+    border-width: 1px;
+    margin-top: 25px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.tscolor {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    text-align: center;
+    color: white;
+    border-style: solid;
+    border-width: 1px;
+    display: inline-block;
+}
+
+.tscolor-flagged {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    text-align: center;
+    color: #0000ff;
+    border-style: solid;
+    border-width: 2px;
+    display: inline-block;
+}
+
+.ts-column-style {
+    border-style: solid;
+    border-left-width: 1px;
+    border-left-color: #e0e0e0;
+}
+.ts-separator {
+    height: 1px;
+    background-color: #e0e0e0;
+    border: 0;
+}
+.ts-warning {
+    color: #FF0000;
+}
+.tscurrent {
+  color: #000000;
+}
+
+.tsflagged {
+    color: #0000FF;
+}
