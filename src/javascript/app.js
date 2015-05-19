@@ -24,16 +24,19 @@ Ext.define("ts-feature-schedule-report", {
     },
     _updateApp: function(){
         this.logger.log('_updateApp');
+        this.setLoading(true);
         var promises = [this._fetchFeatureData(), this._fetchHistoricalFeatureData()];
         Deft.Promise.all(promises).then({
             scope: this,
             success: function(recordsArray){
                 this.logger.log('Promises success',recordsArray);
                 var recordsObject = {currentRecords: recordsArray[0], historicalRecords: recordsArray[1]};
+                this.setLoading(false);
                 this._createDataStore(recordsObject);
             },
             failure: function(operation){
                 this.logger.log('Promise failure', operation);
+                this.setLoading(false);
                 var msg =  'Error retrieving Portfolio Item data:  ';
                 if (typeof operation === 'object'){
                    msg +=  operation.error.errors[0]
@@ -324,6 +327,11 @@ Ext.define("ts-feature-schedule-report", {
                 margin: '0 10 10 10',
                 handler: this._filter
             });
+            this.down('#ct-header').add({xtype:'container',
+                itemId:'filter_box',
+                margin: '0 10 10 10',
+                tpl:'<div class="ts-filter"><b>Applied Filters:</b><br><tpl for=".">{displayProperty} {operator} {displayValue}<br></tpl></div>'});
+
         }
     },
     _addAllOption: function(store){
@@ -340,6 +348,7 @@ Ext.define("ts-feature-schedule-report", {
                 customFilter: function(filters){
                     this.logger.log('_filter event fired',filters);
                     this.currentFilters = filters;
+                    this.down('#filter_box').update(this.currentFilters);
                     this._updateApp();
                 }
             }
