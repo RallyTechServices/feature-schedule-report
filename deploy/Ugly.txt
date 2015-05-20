@@ -3,10 +3,10 @@
 <head>
     <title>Feature Schedule Report</title>
     <!--  (c) 2015 Rally Software Development Corp.  All Rights Reserved. -->
-    <!--  Build Date: Tue May 19 2015 14:40:33 GMT-0700 (PDT) -->
+    <!--  Build Date: Tue May 19 2015 17:01:25 GMT-0700 (PDT) -->
     
     <script type="text/javascript">
-        var APP_BUILD_DATE = "Tue May 19 2015 14:40:33 GMT-0700 (PDT)";
+        var APP_BUILD_DATE = "Tue May 19 2015 17:01:25 GMT-0700 (PDT)";
         var CHECKSUM = [%= checksum %];
     </script>
     
@@ -82,7 +82,10 @@
 }
 
 .tsflagged {
-    color: #0000FF;
+    color: #AA22FF;
+}
+.project {
+    font-weight: 900;
 }
     </style>
 
