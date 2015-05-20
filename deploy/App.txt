@@ -3,11 +3,11 @@
 <head>
     <title>Feature Schedule Report</title>
     <!--  (c) 2015 Rally Software Development Corp.  All Rights Reserved. -->
-    <!--  Build Date: Tue May 19 2015 17:01:25 GMT-0700 (PDT) -->
+    <!--  Build Date: Wed May 20 2015 09:50:52 GMT-0700 (PDT) -->
     
     <script type="text/javascript">
-        var APP_BUILD_DATE = "Tue May 19 2015 17:01:25 GMT-0700 (PDT)";
-        var CHECKSUM = 26975228805;
+        var APP_BUILD_DATE = "Wed May 20 2015 09:50:52 GMT-0700 (PDT)";
+        var CHECKSUM = 27027851529;
     </script>
     
     <script type="text/javascript" src="/apps/2.0/sdk.js"></script>
@@ -987,7 +987,7 @@ Ext.define("ts-feature-schedule-report", {
                     if (v.c_CodeDeploymentSchedule){
                         cds = v.c_CodeDeploymentSchedule;
                     } else {
-                        cds = '<img src="/slm/images/icon_alert_sm.gif" alt="CDS Missing" title="Warning: Code Deployment Schedule is missing!"><span class="ts-warning">Missing</span>';
+                        cds = '<img src="/slm/images/icon_alert_sm.gif" alt="CDS Missing" title="Warning: Code Deployment Schedule is missing!"><span class="ts-warning">Missing Code Deployment Schedule</span>';
                     }
                     var link =  Rally.nav.DetailLink.getLink({record: v._ref, text: v.FormattedID});
                     var featureClass = v.Flagged ? 'tsflagged' : 'tscurrent';

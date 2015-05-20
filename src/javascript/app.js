@@ -289,7 +289,7 @@ Ext.define("ts-feature-schedule-report", {
                     if (v.c_CodeDeploymentSchedule){
                         cds = v.c_CodeDeploymentSchedule;
                     } else {
-                        cds = '<img src="/slm/images/icon_alert_sm.gif" alt="CDS Missing" title="Warning: Code Deployment Schedule is missing!"><span class="ts-warning">Missing</span>';
+                        cds = '<img src="/slm/images/icon_alert_sm.gif" alt="CDS Missing" title="Warning: Code Deployment Schedule is missing!"><span class="ts-warning">Missing Code Deployment Schedule</span>';
                     }
                     var link =  Rally.nav.DetailLink.getLink({record: v._ref, text: v.FormattedID});
                     var featureClass = v.Flagged ? 'tsflagged' : 'tscurrent';
