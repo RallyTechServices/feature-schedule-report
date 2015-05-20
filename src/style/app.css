@@ -56,5 +56,8 @@
 }
 
 .tsflagged {
-    color: #0000FF;
+    color: #AA22FF;
+}
+.project {
+    font-weight: 900;
 }

@@ -8,7 +8,8 @@ Ext.define("ts-feature-schedule-report", {
     featureFetchList: ['ObjectID','FormattedID','Name','c_FeatureTargetSprint','Project','State','c_CodeDeploymentSchedule','DisplayColor'],
     featureFetchHydrateList: ['Project'],
     pivotFieldName: 'c_FeatureTargetSprint',
-    otherText: 'Needs Fixed',
+    otherText: 'Fix Target Sprint',
+    warningIcon: '<img src="/slm/images/icon_alert_sm.gif">',
     allReleasesText: 'All Releases',
     historicalDateRangeInDays: -14,
 
@@ -24,7 +25,9 @@ Ext.define("ts-feature-schedule-report", {
     },
     _updateApp: function(){
         this.logger.log('_updateApp');
-        this.setLoading(true);
+        this.down('#ct-body').removeAll();
+        this.setLoading({msg: 'Loading data...', fixed: true});
+
         var promises = [this._fetchFeatureData(), this._fetchHistoricalFeatureData()];
         Deft.Promise.all(promises).then({
             scope: this,
@@ -74,7 +77,6 @@ Ext.define("ts-feature-schedule-report", {
             callback: function(records, operation, success){
                 this.logger.log('_fetchHistoricalFeatureData callback',success);
                 if (success) {
-                    console.log('resolving records',records);
                     deferred.resolve(records);
                 } else {
                     deferred.reject(operation);
@@ -194,6 +196,7 @@ Ext.define("ts-feature-schedule-report", {
         var otherText = this.otherText;
 
         var data = [];
+
         _.each(projects, function(objs, project_oid){
             var rec = {Project: objs[0].get('Project').Name};
             rec[otherText] = [];
@@ -204,7 +207,6 @@ Ext.define("ts-feature-schedule-report", {
             _.each(objs, function(obj){
                 var newObj = obj.getData();
                 if (snaps_by_oid[obj.get('ObjectID')]){
-                    console.log(newObj.FormattedID, 'FLAGGED',snaps_by_oid[obj.get('ObjectID')]);
                     newObj.Flagged = true;
                 }
                 var pivotValue = obj.get(pivotFieldName) || otherText;
@@ -214,10 +216,18 @@ Ext.define("ts-feature-schedule-report", {
                     rec[otherText].push(newObj);
                 }
             });
+
             data.push(rec);
         });
 
         this.logger.log('data for store', data);
+        var otherStoriesExist = false;
+        _.each(data, function(rec){
+            if (rec[otherText] && rec[otherText].length > 0){
+                otherStoriesExist = true;
+            }
+        });
+        this.otherStoriesExist = otherStoriesExist;
 
         var store= Ext.create('Rally.data.custom.Store',{
             data: data,
@@ -235,11 +245,12 @@ Ext.define("ts-feature-schedule-report", {
             scope: this,
             success: function(pivotFieldValues){
                 var store = this._buildDataStore(records, historicalRecords, pivotFieldValues);
-                this._createGrid(store, pivotFieldValues);
+                this._createGrid(store, pivotFieldValues, this.otherStoriesExist);
             }
         });
     },
-    _createGrid: function(store, pivotFields) {
+
+    _createGrid: function(store, pivotFields, otherStoriesExist) {
         this.logger.log('_createGrid',store);
 
         this.down('#ct-body').removeAll();
@@ -247,8 +258,13 @@ Ext.define("ts-feature-schedule-report", {
         this.down('#ct-body').add({
             xtype: 'rallygrid',
             columnCfgs: [
-                {dataIndex: 'Project', text: 'Project'},
-                {dataIndex: this.otherText, text: this.otherText, renderer: this._featureRenderer},
+                {dataIndex: 'Project', text: 'Project', width: 200, tdCls: 'project'},
+                {
+                    dataIndex: this.otherText,
+                    text: this.otherText + this.warningIcon,
+                    hidden: !otherStoriesExist,
+                    renderer: this._featureRenderer
+                },
             ].concat(_.map(pivotFields, function(pivotField) {
                     return {
                         dataIndex: pivotField,
@@ -275,14 +291,14 @@ Ext.define("ts-feature-schedule-report", {
                     } else {
                         cds = '<img src="/slm/images/icon_alert_sm.gif" alt="CDS Missing" title="Warning: Code Deployment Schedule is missing!"><span class="ts-warning">Missing</span>';
                     }
-
+                    var link =  Rally.nav.DetailLink.getLink({record: v._ref, text: v.FormattedID});
                     var featureClass = v.Flagged ? 'tsflagged' : 'tscurrent';
-                    msg += Ext.String.format('<div class="tscolor" style="background-color:{0};width:10px;height:10px;"></div><span class="{1}">{2}[{3}]{4}: {5}<br/><b><i>{6}</i></b></span><hr class="ts-separator"/>',
+                    msg += Ext.String.format('<div class="tscolor" style="background-color:{0};width:10px;height:10px;"></div><span class="{1}">{2}[{3}]&nbsp;{4}: {5}<br/><b><i>{6}</i></b></span><hr class="ts-separator"/>',
                         v.DisplayColor,
                         featureClass,
                         warning,
                         state,
-                        v.FormattedID,
+                        link,
                         v.Name,
                         cds);
 
@@ -322,22 +338,22 @@ Ext.define("ts-feature-schedule-report", {
                 xtype: 'rallybutton',
                 itemId: 'btn-filter',
                 scope: this,
-                text: 'Filter',
-                width: 75,
+                cls: 'small-icon secondary rly-small',
+                iconCls: 'icon-filter',
                 margin: '0 10 10 10',
                 handler: this._filter
             });
             this.down('#ct-header').add({xtype:'container',
                 itemId:'filter_box',
                 margin: '0 10 10 10',
-                tpl:'<div class="ts-filter"><b>Applied Filters:</b><br><tpl for=".">{displayProperty} {operator} {displayValue}<br></tpl></div>'});
+                tpl:'<div class="ts-filter"><i>Filters:&nbsp;<tpl for=".">{displayProperty} {operator} {displayValue}&nbsp;&nbsp;&nbsp;&nbsp;</tpl></i></div>'});
 
         }
     },
     _addAllOption: function(store){
         store.add({Name: this.allReleasesText, formattedName: this.allReleasesText});
     },
-    _filter: function(){
+    _filter: function(btn){
         this.logger.log('_filter', this.filterFields);
         Ext.create('Rally.technicalservices.dialog.Filter',{
             filters: this.currentFilters,
@@ -348,7 +364,16 @@ Ext.define("ts-feature-schedule-report", {
                 customFilter: function(filters){
                     this.logger.log('_filter event fired',filters);
                     this.currentFilters = filters;
-                    this.down('#filter_box').update(this.currentFilters);
+                    if (filters.length == 0){
+                        btn.removeCls('primary');
+                        btn.addCls('secondary');
+                        this.down('#filter_box').update('');
+                    } else {
+                        btn.removeCls('secondary');
+                        btn.addCls('primary');
+                        this.down('#filter_box').update(this.currentFilters);
+                    }
+
                     this._updateApp();
                 }
             }
