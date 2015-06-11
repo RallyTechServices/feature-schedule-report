@@ -124,12 +124,12 @@ Ext.define("ts-feature-schedule-report", {
                 filters = [{
                     property: 'Release.Name',
                     value: release.get('Name')
-                },{
-                    property: 'Release.ReleaseStartDate',
-                    value: release.get('ReleaseStartDate')
-                },{
-                    property: 'Release.ReleaseDate',
-                    value: release.get('ReleaseDate')
+                //},{
+                //    property: 'Release.ReleaseStartDate',
+                //    value: release.get('ReleaseStartDate')
+                //},{
+                //    property: 'Release.ReleaseDate',
+                //    value: release.get('ReleaseDate')
                 }];
 
             }
