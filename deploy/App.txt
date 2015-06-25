@@ -3,11 +3,11 @@
 <head>
     <title>Feature Schedule Report</title>
     <!--  (c) 2015 Rally Software Development Corp.  All Rights Reserved. -->
-    <!--  Build Date: Wed May 20 2015 09:50:52 GMT-0700 (PDT) -->
+    <!--  Build Date: Thu Jun 11 2015 17:08:08 GMT-0600 (MDT) -->
     
     <script type="text/javascript">
-        var APP_BUILD_DATE = "Wed May 20 2015 09:50:52 GMT-0700 (PDT)";
-        var CHECKSUM = 27027851529;
+        var APP_BUILD_DATE = "Thu Jun 11 2015 17:08:08 GMT-0600 (MDT)";
+        var CHECKSUM = 27045012687;
     </script>
     
     <script type="text/javascript" src="/apps/2.0/sdk.js"></script>
@@ -822,12 +822,12 @@ Ext.define("ts-feature-schedule-report", {
                 filters = [{
                     property: 'Release.Name',
                     value: release.get('Name')
-                },{
-                    property: 'Release.ReleaseStartDate',
-                    value: release.get('ReleaseStartDate')
-                },{
-                    property: 'Release.ReleaseDate',
-                    value: release.get('ReleaseDate')
+                //},{
+                //    property: 'Release.ReleaseStartDate',
+                //    value: release.get('ReleaseStartDate')
+                //},{
+                //    property: 'Release.ReleaseDate',
+                //    value: release.get('ReleaseDate')
                 }];
 
             }
