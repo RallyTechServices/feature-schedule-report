@@ -110,7 +110,7 @@ Ext.define("ts-feature-schedule-report", {
                                 }
                             });
                             
-                            if ( me.timeboxType != "Release" ) {
+                            if ( me.timeboxType != "Release" && me.timeboxNames.length > 0) {
                                 pivotFields = Ext.Array.filter(pivotFields,function(field){
                                     return ( Ext.Array.contains(me.timeboxNames, field) ) ;
                                 });
@@ -155,7 +155,7 @@ Ext.define("ts-feature-schedule-report", {
                     return {property:me.pivotFieldName,value:name};
                 });
             } else {
-                filters = [{property:me.pivotFieldName,value:''}];
+                filters = [{property:'ObjectID',operator: '>',value:0}];
             }
         }
         
@@ -396,6 +396,7 @@ Ext.define("ts-feature-schedule-report", {
         Ext.create('Rally.technicalservices.FieldValueDialog',{
             artifactType: 'PortfolioItem',
             artifactField: this.pivotFieldName,
+            allowEmptyResponse: true,
             listeners: {
                 scope: this,
                 valuechosen: function(dialog,values) {
