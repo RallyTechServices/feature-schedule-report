@@ -283,13 +283,13 @@ Ext.define("ts-feature-schedule-report", {
         this.down('#ct-body').add({
             xtype: 'rallygrid',
             columnCfgs: [
-                {dataIndex: 'Project', text: 'Project', width: 200, tdCls: 'project'},
+                {dataIndex: 'Project', text: 'Project', width: 200, tdCls: 'project'}/*,
                 {
                     dataIndex: this.otherText,
                     text: this.otherText + this.warningIcon,
                     hidden: !otherStoriesExist,
                     renderer: this._featureRenderer
-                }
+                }*/
             ].concat(_.map(pivotFields, function(pivotField) {
                     return {
                         dataIndex: pivotField,
@@ -405,14 +405,12 @@ Ext.define("ts-feature-schedule-report", {
                         return value.get('StringValue');
                     })
                     this.timeboxNames = string_values;
-                    if (this.timeboxNames.length == 0){
+                    if (Ext.isEmpty(this.timeboxNames)){
                         btn.removeCls('primary');
                         btn.addCls('secondary');
-                        this.down('#filter_box').update('');
                     } else {
                         btn.removeCls('secondary');
                         btn.addCls('primary');
-                        this.down('#filter_box').update(this.currentFilters);
                     }
                     this._updateApp();
                 }
