@@ -386,6 +386,19 @@ Ext.define("ts-feature-schedule-report", {
                 margin: '0 10 10 10',
                 tpl:'<div class="ts-filter"><i>Filters:&nbsp;<tpl for=".">{displayProperty} {operator} {displayValue}&nbsp;&nbsp;&nbsp;&nbsp;</tpl></i></div>'});
 
+            this.down('#ct-header').add({
+                xtype:'container',
+                flex: 1,
+                itemId:'spacer'
+            });
+            
+            this.down('#ct-header').add({
+                xtype:'container',
+                width: 200,
+                margin: '0 10 10 10',
+                html: '<div class="legend">Text Color: <div class="tsflagged">&nbsp;&nbsp;&nbsp;Flagged</div><div class="tscurrent">&nbsp;&nbsp;&nbsp;Current</div></div>'
+
+            });
         }
     },
     _addAllOption: function(store){

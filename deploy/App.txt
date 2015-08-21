@@ -3,11 +3,11 @@
 <head>
     <title>Feature Schedule Report</title>
     <!--  (c) 2015 Rally Software Development Corp.  All Rights Reserved. -->
-    <!--  Build Date: Thu Aug 20 2015 21:02:26 GMT-0700 (PDT) -->
+    <!--  Build Date: Thu Aug 20 2015 21:19:15 GMT-0700 (PDT) -->
     
     <script type="text/javascript">
-        var APP_BUILD_DATE = "Thu Aug 20 2015 21:02:26 GMT-0700 (PDT)";
-        var CHECKSUM = 40378036457;
+        var APP_BUILD_DATE = "Thu Aug 20 2015 21:19:15 GMT-0700 (PDT)";
+        var CHECKSUM = 41328564452;
     </script>
     
     <script type="text/javascript" src="/apps/2.0/sdk.js"></script>
@@ -1322,6 +1322,19 @@ Ext.define("ts-feature-schedule-report", {
                 margin: '0 10 10 10',
                 tpl:'<div class="ts-filter"><i>Filters:&nbsp;<tpl for=".">{displayProperty} {operator} {displayValue}&nbsp;&nbsp;&nbsp;&nbsp;</tpl></i></div>'});
 
+            this.down('#ct-header').add({
+                xtype:'container',
+                flex: 1,
+                itemId:'spacer'
+            });
+            
+            this.down('#ct-header').add({
+                xtype:'container',
+                width: 200,
+                margin: '0 10 10 10',
+                html: '<div class="legend">Text Color: <div class="tsflagged">&nbsp;&nbsp;&nbsp;Flagged</div><div class="tscurrent">&nbsp;&nbsp;&nbsp;Current</div></div>'
+
+            });
         }
     },
     _addAllOption: function(store){
@@ -1453,6 +1466,13 @@ Ext.define("ts-feature-schedule-report", {
 }
 .project {
     font-weight: 900;
+}
+
+.legend {
+}
+
+.legend .tscurrent, .legend .tsflagged {
+    margin-left: 25px;
 }
     </style>
 
