@@ -1,6 +1,10 @@
 #Feature Schedule Report
 
+Choose one or more target sprints, each will become a column.  If none are chosen, then the whole set will be displayed.
+
 ## Development Notes
+
+* use the timeboxType = Release to go back to using the release selector (not tested)
 
 ### First Load
 

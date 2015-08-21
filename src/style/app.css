@@ -61,3 +61,10 @@
 .project {
     font-weight: 900;
 }
+
+.legend {
+}
+
+.legend .tscurrent, .legend .tsflagged {
+    margin-left: 25px;
+}
