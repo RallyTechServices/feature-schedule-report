@@ -3,11 +3,11 @@
 <head>
     <title>Feature Schedule Report</title>
     <!--  (c) 2015 Rally Software Development Corp.  All Rights Reserved. -->
-    <!--  Build Date: Thu Aug 20 2015 21:19:15 GMT-0700 (PDT) -->
+    <!--  Build Date: Mon Aug 24 2015 09:42:35 GMT-0700 (PDT) -->
     
     <script type="text/javascript">
-        var APP_BUILD_DATE = "Thu Aug 20 2015 21:19:15 GMT-0700 (PDT)";
-        var CHECKSUM = 41328564452;
+        var APP_BUILD_DATE = "Mon Aug 24 2015 09:42:35 GMT-0700 (PDT)";
+        var CHECKSUM = 41292372616;
     </script>
     
     <script type="text/javascript" src="/apps/2.0/sdk.js"></script>
@@ -1332,7 +1332,7 @@ Ext.define("ts-feature-schedule-report", {
                 xtype:'container',
                 width: 200,
                 margin: '0 10 10 10',
-                html: '<div class="legend">Text Color: <div class="tsflagged">&nbsp;&nbsp;&nbsp;Flagged</div><div class="tscurrent">&nbsp;&nbsp;&nbsp;Current</div></div>'
+                html: '<div class="legend">Text Color: <li><div class="tsflagged">Items have been pushed</div><li><div class="tscurrent">Current</div></div>'
 
             });
         }

@@ -396,7 +396,7 @@ Ext.define("ts-feature-schedule-report", {
                 xtype:'container',
                 width: 200,
                 margin: '0 10 10 10',
-                html: '<div class="legend">Text Color: <div class="tsflagged">&nbsp;&nbsp;&nbsp;Flagged</div><div class="tscurrent">&nbsp;&nbsp;&nbsp;Current</div></div>'
+                html: '<div class="legend">Text Color: <li><div class="tsflagged">Items have been pushed</div><li><div class="tscurrent">Current</div></div>'
 
             });
         }
